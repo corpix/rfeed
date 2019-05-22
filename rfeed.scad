@@ -44,7 +44,8 @@ function portal(width, height) = {
 portal(10, 26);
 */
 
-module portal(width,height,thicknessX,thicknessY,angle=55)
+/*
+module portal_complex(width,height,thicknessX,thicknessY,angle=55)
 {
     rotate([90,0,0]) {
         difference() {
@@ -64,4 +65,24 @@ module portal(width,height,thicknessX,thicknessY,angle=55)
     };
 };
   
-portal(20, 26, 2.5, 1);
+translate([200,0,0]) portal_complex(20, 26, 2.5, 1);
+*/
+
+
+module rfeed_piramid(width=40) {
+    rotate([90,0,0]) linear_extrude(height=width) polygon([[0,0], [15,25], [60,0]]);
+};
+
+difference() {
+    rfeed_piramid();
+    translate([20,-32-(40-32)/2,4]) cube([60,32,40]);
+    translate([49,1,-1]) rfeed_piramid(42);
+};
+
+translate([30, -40/2, 4]) {
+    union() {
+        translate([0,-7.5,0])cylinder(5, d=15);
+        translate([0,7.5,0]) cylinder(5, d=15);
+    };
+    translate([9, -(40-4*2)/2]) cube([0.3, 40-4*2, 7]);
+};
